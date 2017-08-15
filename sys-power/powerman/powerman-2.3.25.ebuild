@@ -6,7 +6,7 @@ EAPI=6
 
 DESCRIPTION="RPC/PDU control and monitoring service for data center or compute cluster power management"
 HOMEPAGE="https://github.com/chaos/powerman"
-SRC_URI="https://github.com/chaos/${PN}/archive/${P}.tar.gz"
+SRC_URI="https://github.com/chaos/${PN}/releases/download/${PV}/${P}.tar.gz"
 
 LICENSE="GPL-2+"
 SLOT="0"
@@ -32,7 +32,5 @@ src_configure() {
 
 src_install() {
 	emake DESTDIR="${D}" -j1 install
-#	rm -rf "${D}"/{etc/init.d/${PN},var/run}
-#	doinitd "${FILESDIR}"/${PN}
 	dodoc AUTHORS ChangeLog DISCLAIMER NEWS TODO
 }
