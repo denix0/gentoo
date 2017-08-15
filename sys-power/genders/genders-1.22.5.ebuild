@@ -4,7 +4,7 @@
 
 EAPI=6
 
-DESCRIPTION="genders library"
+DESCRIPTION="Genders is a static cluster configuration database used for cluster configuration management"
 HOMEPAGE="https://github.com/chaos/genders"
 SRC_URI="https://github.com/chaos/${PN}/releases/downloads/${PN}-1-22-1/${P}.tar.gz"
 
@@ -14,17 +14,14 @@ KEYWORDS="~amd64 ~x86"
 
 DEPEND="sys-devel/bison"
 
+# Makefile has race issues generating tab files in parallel
 MAKEOPTS+=" -j1"
 
 src_configure() {
-	# Powerman stores the pidfile under $localstatedir/run.
-	# It's set to /var/lib in the release, but in gentoo pidfiles live under /var/run.
+	# disable all extensions, as only need minimal config for powerman
 	econf --without-java-extensions --without-python-extensions --without-cplusplus-extensions
 }
 
 src_install() {
 	emake DESTDIR="${D}" -j1 install
-#	rm -rf "${D}"/{etc/init.d/${PN},var/run}
-#	doinitd "${FILESDIR}"/${PN}
-#	dodoc AUTHORS ChangeLog DISCLAIMER NEWS TODO
 }
